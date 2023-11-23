@@ -118,6 +118,16 @@ def read_html_from_file(file_path, array_symbol):
                         array_html.append("*")
                     currentW = ""
         
+        if (str[index:index+4] == "<!--"):
+            index+=7
+            array_html.append("<!--")
+            while(str[index-3:index] !="-->" and str[index] != "\n"):
+                index+=1
+            
+            array_html.append(str[index-3:index])
+            currentW = ""
+            continue
+            
         # print("cword: ", currentW)
         currentW += str[index]
         
