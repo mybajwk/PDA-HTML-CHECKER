@@ -37,7 +37,7 @@ class PDA:
             if key not in self.transitions:
                 return (False, currLine)
             
-            while key in self.transitions:
+            if key in self.transitions:
                 print("stack :", self.stack)
                 print("key :", key)
                 (next_state, final_stack) = self.transitions[key]
@@ -51,8 +51,8 @@ class PDA:
                         self.stack.append(el)
                 
                 print("stack2: ", self.stack)
-                if (top_stack == self.stack[-1] and self.current_state == old_state):
-                    break
+                # if (top_stack == self.stack[-1] and self.current_state == old_state):
+                #     break
                 top_stack = self.stack[-1]
                 key = (self.current_state, token, top_stack)
                 print("key2: ", key)
@@ -114,8 +114,8 @@ def read_html_from_file(file_path, array_symbol):
         if (str[index] == "<"):
             if (len(currentW) > 0):
                 if (currentW not in array_symbol):
-                    for c in currentW:
-                        array_html.append("*")
+                    # for c in currentW:
+                    array_html.append("*")
                     currentW = ""
         
         if (str[index:index+4] == "<!--"):
@@ -154,6 +154,18 @@ def read_html_from_file(file_path, array_symbol):
                 index = index + 1
                 continue
             array_html.append(currentW)
+            pattern = r"<\/[a-zA-Z0-9]+>"
+            if (currentW == pattern):
+                array_html.append("!")
+            
+            pattern = r"<\/[a-zA-Z0-9]+>"
+            if (re.fullmatch(pattern, currentW)):
+                array_html.append("!")
+            else:
+                if (currentW == "/>"):
+                    array_html.append("!")
+                
+            
             currentW = ""
             
         
