@@ -130,9 +130,18 @@ def read_html_from_file(file_path, array_symbol):
             
         # print("cword: ", currentW)
         currentW += str[index]
+        currentW.replace(" ", "")
         
         if (currentW in array_symbol):
             if (currentW == "<" and str[index + 1] != " "):
+                index = index + 1
+                continue
+            
+            if (currentW == "</" and str[index + 1] != " "):
+                index = index + 1
+                continue
+            
+            if (currentW == "/" and str[index + 1] != " "):
                 index = index + 1
                 continue
                 
