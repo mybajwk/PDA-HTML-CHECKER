@@ -58,11 +58,15 @@ class PDA:
         return (False, currLine)
         
 def read_html_from_file(file_path, array_symbol):
-    with open(file_path, 'r') as file:
-        str = file.read()
-    
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
+    try:
+        with open(file_path, 'r') as file:
+            str = file.read()
+
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+    except:
+        print("File HTML tidak ditemukan")
+        return ([], [])
     
     array_html = []
     
@@ -193,8 +197,12 @@ def read_html_from_file(file_path, array_symbol):
     return (array_html, lines)
 
 def read_pda_definition_from_file(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+    except:
+        print("File PDA tidak ditemukan")
+        return None
     
     
     states = lines[0].replace("\n","").split(" ")
@@ -218,15 +226,22 @@ def read_pda_definition_from_file(file_path):
     return pda
 
 def main(pda_file_path, html_file_path):
-    print("start")
-    print(pda_file_path)
-    print(html_file_path)
+
+        
+    print("Program Berjalan")
     pda = read_pda_definition_from_file(pda_file_path)
+    
+    if (pda is None):
+        return
+        
     # key = ('Q', '</html>', '<html')
     # print(pda.transitions)
     
     
     array_html, lines = read_html_from_file(html_file_path, pda.input_symbols)
+    if (len(lines) == 0):
+        return
+    
     print(array_html)
     
     result, currLine = pda.check(array_html)
@@ -238,6 +253,9 @@ def main(pda_file_path, html_file_path):
         print(pda.stack)
     
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    if (len(sys.argv) != 3):
+        print("Format masukan salah: (python checker.py <pda_text_filename> <html_test_filename>)")
+    else:
+        main(sys.argv[1], sys.argv[2])
     
     
