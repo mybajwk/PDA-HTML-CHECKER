@@ -250,7 +250,7 @@ def main(pda_file_path, html_file_path):
     else:
         print("\nSyntax Error\n")
         print("ERROR IN LINE ", currLine, " : ", lines[currLine - 1].strip())
-        print(pda.stack)
+        # print(pda.stack)
     
 if __name__ == "__main__":
     if (len(sys.argv) != 3):
