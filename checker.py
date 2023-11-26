@@ -31,15 +31,15 @@ class PDA:
             
             top_stack = self.stack[-1]
             key = (self.current_state, token, top_stack)
-            print("stack 0:", self.stack)
-            print("key 0:", key)
+            # print("stack 0:", self.stack)
+            # print("key 0:", key)
             
             if key not in self.transitions:
                 return (False, currLine)
             
             if key in self.transitions:
-                print("stack :", self.stack)
-                print("key :", key)
+                # print("stack :", self.stack)
+                # print("key :", key)
                 (next_state, final_stack) = self.transitions[key]
                 self.current_state = next_state
                 
@@ -70,7 +70,7 @@ def read_html_from_file(file_path, array_symbol):
     
     array_html = []
     
-    print(str)
+    # print(str)
     
     index = 0
     
@@ -242,13 +242,13 @@ def main(pda_file_path, html_file_path):
     if (len(lines) == 0):
         return
     
-    print(array_html)
+    # print(array_html)
     
     result, currLine = pda.check(array_html)
     if (result):
-        print("ACCEPTED")
+        print("\nACCEPTED")
     else:
-        print("Syntax Error\n")
+        print("\nSyntax Error\n")
         print("ERROR IN LINE ", currLine, " : ", lines[currLine - 1].strip())
         print(pda.stack)
     
